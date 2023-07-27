@@ -25,7 +25,7 @@ jobs:
           include-prerelease: true
       
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{ env.APP_PATH }}/myapp
+        run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
