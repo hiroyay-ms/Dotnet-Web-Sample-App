@@ -1,4 +1,4 @@
-name: Azure login using OIDC sample
+name: Run Azure login with OIDC
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
-      - name: run commands
+      - name: Run az commands
         run: |
           az account show
           az group list -o table
