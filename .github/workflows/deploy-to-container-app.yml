@@ -25,6 +25,7 @@ jobs:
     if: github.event.inputs.useExistingImage == 'false'
     runs-on: ubuntu-latest
 
+    steps:
       - uses: actions/checkout@v2
 
       - name: Login to Azure
