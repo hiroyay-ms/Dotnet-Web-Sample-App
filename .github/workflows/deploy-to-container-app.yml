@@ -30,8 +30,9 @@ jobs:
         run: echo "hello"
 
   deploy:
-    runs-on: ubuntu-latest
+    if: always()
     needs: build-and-push
+    runs-on: ubuntu-latest
 
     steps:
       - name: say hello
