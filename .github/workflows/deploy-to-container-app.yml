@@ -63,5 +63,5 @@ jobs:
           acrName: ${{ secrets.REGISTRY_USERNAME }}
           containerAppName: ${{ github.inputs.containerAppName }}
           resourceGroupName: rg-Web
-          iamgeToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/web:v${{ github.inputs.tagName }}
+          imageToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/web:v${{ github.inputs.tagName }}
           environmentVariables: SqlConnectionString=secretref:sqlconnectionstring
