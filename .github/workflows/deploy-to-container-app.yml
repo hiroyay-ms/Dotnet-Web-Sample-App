@@ -58,9 +58,10 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure Container App
-        uses: azure/container-apps-deploy@v1
+        uses: azure/container-apps-deploy-action@v1
         with:
           acrName: ${{ secrets.REGISTRY_USERNAME }}
           containerAppName: ${{ github.inputs.containerAppName }}
           resourceGroupName: rg-Web
           iamgeToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/web:v${{ github.inputs.tagName }}
+          environmentVariables: SqlConnectionString=secretref:sqlconnectionstring
