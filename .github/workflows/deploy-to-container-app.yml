@@ -62,6 +62,7 @@ jobs:
         with:
           acrName: ${{ secrets.REGISTRY_USERNAME }}
           containerAppName: ${{ github.inputs.containerAppName }}
+          containerAppEnvironment: managedEnvironment-demo-web-eastus
           resourceGroup: rg-Web
           imageToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/web:v${{ github.inputs.tagName }}
           environmentVariables: SqlConnectionString=secretref:sqlconnectionstring
