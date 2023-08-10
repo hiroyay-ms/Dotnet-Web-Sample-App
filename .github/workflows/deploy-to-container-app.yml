@@ -11,6 +11,10 @@ on:
         description: Tag Name
         type: string
         required: true
+      resourceGroup:
+        description: Resource Group
+        type: string
+        required: true
       containerAppName:
         description: Container App Name
         type: string
@@ -58,12 +62,9 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure Container App
-        uses: azure/container-apps-deploy-action@v1
+        uses: azure/CLI@v1
         with:
-          acrName: ${{ secrets.REGISTRY_USERNAME }}
-          acrUsername : ${{ secrets.REGISTRY_USERNAME }}
-          acrPassword : ${{ secrets.REGISTRY_PASSWORD }}
-          containerAppName: ${{ github.inputs.containerAppName }}
-          resourceGroup: rg-Web
-          imageToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/web:v${{ github.inputs.tagName }}
-          environmentVariables: SqlConnectionString=secretref:sqlconnectionstring
+          inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az containerapp registry set -n ${{ github.event.inputs.containerAppName }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --identity system
+            az containerapp update -n ${{ github.event.inputs.containerAppName }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.event.inputs.tagName }}
